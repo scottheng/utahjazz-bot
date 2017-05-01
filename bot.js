@@ -5,7 +5,7 @@ var Twitter = new twit(config);
 
 var retweet = function() {
 	var params = {
-		q: '#utahjazz, #takenote, #gobert',
+		q: '#takenote',
 		result_type: 'recent',
 		lang: 'en'
 	};
@@ -35,7 +35,7 @@ setInterval(retweet, 1800000);
 
 var favoriteTweet = function() {
 	var params = {
-		q: '#utahjazz, #takenote, #gobert',
+		q: '#takenote',
 		result_type: 'recent',
 		lang: 'en'
 	};
@@ -44,7 +44,7 @@ var favoriteTweet = function() {
 		var tweet = data.statuses;
 		var randomTweet = random(tweet);
 
-		if (typeof randomTweet != 'undefined') {
+		if (typeof randomTweet !== 'undefined') {
 			Twitter.post('favorites/create', {id: randomTweet.id_str}, function(err, response) {
 				if (err) {
 					console.log("Cannot favorite");
