@@ -31,7 +31,38 @@ var retweet = function() {
 };
 
 retweet();
-setInterval(retweet, 3000000);
+setInterval(retweet, 1800000);
 
+var favoriteTweet = function() {
+	var params = {
+		q: '#utahjazz, #takenote, #gobert',
+		result_type: 'recent',
+		lang: 'en'
+	};
+
+	Twitter.get('search/tweets', params, function(err, data) {
+		var tweet = data.statuses;
+		var randomTweet = random(tweet);
+
+		if (typeof randomTweet != 'undefined') {
+			Twitter.post('favorites/create', {id: randomTweet.id_str}, function(err, response) {
+				if (err) {
+					console.log("Cannot favorite");
+				}
+				else {
+					console.log("Tweet favorited!");
+				}
+			});
+		}
+	});
+};
+
+function random(arr) {
+	var index = Math.floor(Math.random()*arr.length);
+	return arr[index];
+}
+
+favoriteTweet();
+setInterval(favoriteTweet, 3600000);
 
 
